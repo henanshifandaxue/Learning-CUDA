@@ -5,8 +5,6 @@
 
 #include "../tester/utils.h"
 
-// 天数平台可能使用不同的头文件，这里提供一个通用实现
-// 实际使用时可能需要包含 iluvatar_fp16.h 等头文件
 
 // ==================== Trace Function ====================
 
@@ -34,7 +32,7 @@ T trace(const std::vector<T>& h_input, size_t rows, size_t cols) {
 // ==================== Half Type Support ====================
 
 #ifdef __ILUVATAR_FP16_H__
-// 如果有 iluvatar_fp16.h，可以使用其定义
+
 #else
 // 否则提供简单的 half 类型定义
 struct half {
@@ -123,8 +121,7 @@ void flashAttention(const std::vector<T>& h_q, const std::vector<T>& h_k,
     float scale_factor = 1.0f / sqrtf(static_cast<float>(head_dim));
     int head_repeat = query_heads / kv_heads;
     
-    // CPU implementation for 天数平台
-    // 在实际部署中应使用天数平台的GPU内核
+    
     for (int b = 0; b < batch_size; ++b) {
         for (int tgt_i = 0; tgt_i < target_seq_len; ++tgt_i) {
             for (int qh = 0; qh < query_heads; ++qh) {
